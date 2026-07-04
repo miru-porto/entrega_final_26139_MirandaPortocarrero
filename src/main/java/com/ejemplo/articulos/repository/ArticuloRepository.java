@@ -34,7 +34,6 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Long> {
 
 
 /*
- 
     // Buscar artículos por nombre exacto
     List<Articulo> findByNombre(String nombre);
 

@@ -2,6 +2,9 @@
 package com.ejemplo.articulos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 // Indica que esta clase es una entidad JPA
 @Entity
@@ -12,8 +15,13 @@ public class Articulo {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincremental
     private Long id;
 
+    @NotBlank(message = "El nombre es obligatorio") // No puede ser null ni estar vacío
     private String nombre;
+
+    @NotNull(message = "El precio es obligatorio")
+    @Positive(message = "El precio debe ser mayor que cero")
     private Double precio;
+
     private String imagen;
 
     public Articulo() {}

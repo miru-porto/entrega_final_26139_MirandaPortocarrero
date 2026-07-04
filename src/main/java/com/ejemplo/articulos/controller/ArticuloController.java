@@ -3,7 +3,9 @@ package com.ejemplo.articulos.controller;
 
 import com.ejemplo.articulos.model.Articulo;
 import com.ejemplo.articulos.service.ArticuloService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,12 +36,13 @@ public class ArticuloController {
     }
 
     @PostMapping
-    public Articulo crear(@RequestBody Articulo articulo) {
-        return articuloService.guardarArticulo(articulo);
+    public ResponseEntity<Articulo> crear(@Valid @RequestBody Articulo articulo) {
+        Articulo creado = articuloService.guardarArticulo(articulo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado); // 201 Created
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Articulo> actualizar(@PathVariable Long id, @RequestBody Articulo articulo) {
+    public ResponseEntity<Articulo> actualizar(@PathVariable Long id, @Valid @RequestBody Articulo articulo) {
         if (articuloService.obtenerArticuloPorId(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
