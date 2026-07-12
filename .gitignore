@@ -1,0 +1,18 @@
+# Claude Code
+.claude/
+
+# Maven
+target/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Frontend (Node)
+frontend/node_modules/
+frontend/dist/
+
+# Sistema operativo
+Thumbs.db
+.DS_Store
