@@ -48,7 +48,6 @@ proyecto_final2026/
 Lo generado por las herramientas no se versiona: `target/` (compilado de Maven), `frontend/node_modules/`, `frontend/dist/` y `frontend/.env`. Se recrean con `mvn` y `npm install`.
 
 ### Modelo de datos
-Código fuente del diagrama (Mermaid)
 
 ```mermaid
 erDiagram
