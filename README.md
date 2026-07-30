@@ -48,11 +48,7 @@ proyecto_final2026/
 Lo generado por las herramientas no se versiona: `target/` (compilado de Maven), `frontend/node_modules/`, `frontend/dist/` y `frontend/.env`. Se recrean con `mvn` y `npm install`.
 
 ### Modelo de datos
-
-![Diagrama entidad-relación: CATEGORIA agrupa PRODUCTO, USUARIO realiza PEDIDO, PEDIDO contiene LINEA_PEDIDO, PRODUCTO referencia LINEA_PEDIDO](docs/modelo-datos.png)
-
-<details>
-<summary>Código fuente del diagrama (Mermaid)</summary>
+Código fuente del diagrama (Mermaid)
 
 ```mermaid
 erDiagram
@@ -98,7 +94,6 @@ erDiagram
     }
 ```
 
-</details>
 
 ## Cómo correr el proyecto
 
