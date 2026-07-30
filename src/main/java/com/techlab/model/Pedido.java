@@ -1,11 +1,17 @@
 package com.techlab.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// No se usa @Data: generaria toString/equals sobre 'lineas', y como LineaPedido
+// referencia de vuelta al pedido, la relacion bidireccional entra en recursion infinita.
+@Getter
+@Setter
 @Entity
 @Table(name = "pedido")
 public class Pedido {
@@ -31,19 +37,6 @@ public class Pedido {
     private List<LineaPedido> lineas = new ArrayList<>();
 
     public Pedido() {}
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-    public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-    public EstadoPedido getEstado() { return estado; }
-    public void setEstado(EstadoPedido estado) { this.estado = estado; }
-    public Double getTotal() { return total; }
-    public void setTotal(Double total) { this.total = total; }
-    public List<LineaPedido> getLineas() { return lineas; }
-    public void setLineas(List<LineaPedido> lineas) { this.lineas = lineas; }
 
     // Vincula la línea a este pedido (mantiene consistente la relación bidireccional)
     public void agregarLinea(LineaPedido linea) {
