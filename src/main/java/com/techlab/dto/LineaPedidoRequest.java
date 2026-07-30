@@ -1,11 +1,11 @@
 package com.techlab.dto;
 
-import com.techlab.model.Pedido;
-import com.techlab.model.Producto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 // Una línea del pedido que envía el frontend: qué producto y cuántas unidades
+@Data
 public class LineaPedidoRequest {
 
     @NotNull(message = "El id del producto es obligatorio")
@@ -15,10 +15,6 @@ public class LineaPedidoRequest {
     @Min(value = 1, message = "La cantidad debe ser al menos 1")
     private Integer cantidad;
 
+    // Constructor vacio explicito: lo necesita Jackson para deserializar el JSON
     public LineaPedidoRequest() {}
-
-    public Long getProductoId() { return productoId; }
-    public void setProductoId(Long productoId) { this.productoId = productoId; }
-    public Integer getCantidad() { return cantidad; }
-    public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
 }
