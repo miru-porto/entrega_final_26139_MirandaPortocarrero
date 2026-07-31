@@ -1,0 +1,11 @@
+# Todo lo que este aca NO se envia al construir la imagen.
+# Reduce el tamano del contexto y evita copiar basura dentro de la imagen.
+
+target/
+.git/
+.gitignore
+.idea/
+frontend/
+docs/
+*.md
+.env

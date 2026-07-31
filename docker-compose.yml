@@ -1,0 +1,58 @@
+# Levanta la base de datos y el backend con un solo comando: docker compose up
+#
+# Compose crea automaticamente una red interna donde cada servicio es alcanzable
+# por su NOMBRE. Por eso el backend se conecta a "mysql:3306" y no a "localhost":
+# dentro de un contenedor, localhost apunta al propio contenedor.
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: techlab-mysql
+    environment:
+      # Si DB_PASSWORD no esta definida, Compose aborta con este mensaje
+      # en vez de arrancar con una configuracion incompleta.
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?Falta definir DB_PASSWORD (copiá .env.example a .env)}
+      # MySQL crea esta base en el primer arranque
+      MYSQL_DATABASE: techlab_db
+    ports:
+      # 3307 en tu maquina -> 3306 dentro del contenedor.
+      # Se usa 3307 para no chocar con un MySQL ya instalado en el 3306.
+      - "3307:3306"
+    volumes:
+      # Sin esto, los datos viven dentro del contenedor y "docker compose down"
+      # los borra. El volumen los guarda fuera de su ciclo de vida.
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      # depends_on solo espera a que el contenedor ARRANQUE, no a que MySQL
+      # este LISTO para aceptar conexiones (tarda unos segundos mas).
+      # Este chequeo es el que marca la diferencia entre las dos cosas.
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  backend:
+    # A diferencia de mysql, que usa una imagen publica, esta se construye
+    # a partir del Dockerfile que esta en este mismo directorio.
+    build: .
+    container_name: techlab-backend
+    depends_on:
+      mysql:
+        # Espera al healthcheck de arriba, no solo al arranque del contenedor
+        condition: service_healthy
+    environment:
+      # "mysql" es el nombre del servicio, que funciona como host en la red interna.
+      # Esto se puede inyectar sin tocar codigo porque application.properties
+      # lee estas tres variables de entorno.
+      DB_URL: jdbc:mysql://mysql:3306/techlab_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8080:8080"
+
+volumes:
+  # Volumen con nombre, gestionado por Docker. Sobrevive a "docker compose down".
+  # Para borrarlo explicitamente: docker compose down -v
+  mysql-data:

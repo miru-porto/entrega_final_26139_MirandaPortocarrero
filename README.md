@@ -96,6 +96,38 @@ erDiagram
 
 ## Cómo correr el proyecto
 
+Hay dos caminos: con **Docker** (no requiere tener Java ni MySQL instalados) o **instalación manual**.
+
+## Opción A: con Docker
+
+Requiere solo Docker Desktop. Levanta la base de datos y el backend juntos:
+
+```bash
+cp .env.example .env
+```
+
+Poné una contraseña en `DB_PASSWORD` dentro de `.env` y después:
+
+```bash
+docker compose up --build
+```
+
+La API queda en `http://localhost:8080/api`, con las tablas creadas y los datos semilla cargados. El MySQL del contenedor se expone en el **3307**, no en el 3306, para no chocar con un MySQL que ya tengas instalado.
+
+Comandos útiles:
+
+| Comando | Qué hace |
+|---|---|
+| `docker compose up --build` | Construye las imágenes y levanta todo |
+| `docker compose up -d` | Igual, pero en segundo plano |
+| `docker compose logs -f backend` | Ver los logs del backend |
+| `docker compose down` | Baja los contenedores (los datos se conservan) |
+| `docker compose down -v` | Baja todo **y borra la base** |
+
+El frontend no está en Docker: se corre aparte con `npm run dev` (paso 3 más abajo).
+
+## Opción B: instalación manual
+
 ### Requisitos
 - Java 17+ y Maven
 - MySQL 8 corriendo en `localhost:3306`
