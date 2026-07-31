@@ -41,15 +41,4 @@ public class Producto {
     private Categoria categoria;
 
     public Producto() {}
-
-    public Producto(Long id, String nombre, String descripcion, Double precio,
-                    String imagen, Integer stock, Categoria categoria) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.imagen = imagen;
-        this.stock = stock;
-        this.categoria = categoria;
-    }
 }

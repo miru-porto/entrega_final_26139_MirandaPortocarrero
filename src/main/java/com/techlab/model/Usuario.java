@@ -28,11 +28,4 @@ public class Usuario {
     private String direccion;
 
     public Usuario() {}
-
-    public Usuario(Long id, String nombre, String email, String direccion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.email = email;
-        this.direccion = direccion;
-    }
 }
