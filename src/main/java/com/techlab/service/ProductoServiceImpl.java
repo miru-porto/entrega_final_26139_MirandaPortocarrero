@@ -31,13 +31,13 @@ public class ProductoServiceImpl implements ProductoService {
         List<Producto> productos = (nombre != null && !nombre.isBlank())
                 ? productoRepository.findByNombreContainingIgnoreCase(nombre)
                 : productoRepository.findAll();
-        return productos.stream().map(ProductoResponse::desde).toList();
+        return productos.stream().map(ProductoResponse::from).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public ProductoResponse obtenerProductoPorId(Long id) {
-        return ProductoResponse.desde(buscarProducto(id));
+        return ProductoResponse.from(buscarProducto(id));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponse crearProducto(ProductoRequest request) {
         Producto producto = new Producto();
         aplicar(request, producto);
-        return ProductoResponse.desde(productoRepository.save(producto));
+        return ProductoResponse.from(productoRepository.save(producto));
     }
 
     // Carga el producto existente y le vuelca los campos del request, en vez de
@@ -56,7 +56,7 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoResponse actualizarProducto(Long id, ProductoRequest request) {
         Producto producto = buscarProducto(id);
         aplicar(request, producto);
-        return ProductoResponse.desde(productoRepository.save(producto));
+        return ProductoResponse.from(productoRepository.save(producto));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ProductoServiceImpl implements ProductoService {
         }
         Producto producto = buscarProducto(id);
         producto.setStock(stock);
-        return ProductoResponse.desde(productoRepository.save(producto));
+        return ProductoResponse.from(productoRepository.save(producto));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional(readOnly = true)
     public List<ProductoResponse> listarStockBajo(Integer umbral) {
         return productoRepository.findByStockLessThanEqual(umbral)
-                .stream().map(ProductoResponse::desde).toList();
+                .stream().map(ProductoResponse::from).toList();
     }
 
     private void aplicar(ProductoRequest request, Producto producto) {

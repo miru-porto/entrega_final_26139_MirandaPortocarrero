@@ -52,20 +52,20 @@ public class PedidoServiceImpl implements PedidoService {
         if (usuarioId != null) {
             return listarPedidosPorUsuario(usuarioId);
         }
-        return pedidoRepository.findAll().stream().map(PedidoResponse::desde).toList();
+        return pedidoRepository.findAll().stream().map(PedidoResponse::from).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public PedidoResponse obtenerPedidoPorId(Long id) {
-        return PedidoResponse.desde(buscarPedido(id));
+        return PedidoResponse.from(buscarPedido(id));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<PedidoResponse> listarPedidosPorUsuario(Long usuarioId) {
         return pedidoRepository.findByUsuarioIdOrderByFechaDesc(usuarioId)
-                .stream().map(PedidoResponse::desde).toList();
+                .stream().map(PedidoResponse::from).toList();
     }
 
     // Carga la entidad para uso interno del servicio; hacia afuera se expone PedidoResponse
@@ -103,7 +103,7 @@ public class PedidoServiceImpl implements PedidoService {
         }
 
         pedido.setTotal(pedido.calcularTotal());
-        return PedidoResponse.desde(pedidoRepository.save(pedido));
+        return PedidoResponse.from(pedidoRepository.save(pedido));
     }
 
     @Override
@@ -127,6 +127,6 @@ public class PedidoServiceImpl implements PedidoService {
         }
 
         pedido.setEstado(nuevoEstado);
-        return PedidoResponse.desde(pedidoRepository.save(pedido));
+        return PedidoResponse.from(pedidoRepository.save(pedido));
     }
 }

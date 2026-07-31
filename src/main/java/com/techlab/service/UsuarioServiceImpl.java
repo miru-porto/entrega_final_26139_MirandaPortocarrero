@@ -22,13 +22,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional(readOnly = true)
     public List<UsuarioResponse> listarUsuarios() {
-        return usuarioRepository.findAll().stream().map(UsuarioResponse::desde).toList();
+        return usuarioRepository.findAll().stream().map(UsuarioResponse::from).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public UsuarioResponse obtenerUsuarioPorId(Long id) {
-        return UsuarioResponse.desde(buscarUsuario(id));
+        return UsuarioResponse.from(buscarUsuario(id));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponse crearUsuario(UsuarioRequest request) {
         Usuario usuario = new Usuario();
         aplicar(request, usuario);
-        return UsuarioResponse.desde(usuarioRepository.save(usuario));
+        return UsuarioResponse.from(usuarioRepository.save(usuario));
     }
 
     // Carga el usuario existente y le vuelca los campos del request: el id no es
@@ -46,7 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponse actualizarUsuario(Long id, UsuarioRequest request) {
         Usuario usuario = buscarUsuario(id);
         aplicar(request, usuario);
-        return UsuarioResponse.desde(usuarioRepository.save(usuario));
+        return UsuarioResponse.from(usuarioRepository.save(usuario));
     }
 
     @Override

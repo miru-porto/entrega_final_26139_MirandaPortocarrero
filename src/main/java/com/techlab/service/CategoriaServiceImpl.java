@@ -22,13 +22,13 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     @Transactional(readOnly = true)
     public List<CategoriaResponse> listarCategorias() {
-        return categoriaRepository.findAll().stream().map(CategoriaResponse::desde).toList();
+        return categoriaRepository.findAll().stream().map(CategoriaResponse::from).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public CategoriaResponse obtenerCategoriaPorId(Long id) {
-        return CategoriaResponse.desde(buscarCategoria(id));
+        return CategoriaResponse.from(buscarCategoria(id));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     public CategoriaResponse crearCategoria(CategoriaRequest request) {
         Categoria categoria = new Categoria();
         aplicar(request, categoria);
-        return CategoriaResponse.desde(categoriaRepository.save(categoria));
+        return CategoriaResponse.from(categoriaRepository.save(categoria));
     }
 
     // Carga la categoria existente y le vuelca los campos del request: el id no es
@@ -46,7 +46,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     public CategoriaResponse actualizarCategoria(Long id, CategoriaRequest request) {
         Categoria categoria = buscarCategoria(id);
         aplicar(request, categoria);
-        return CategoriaResponse.desde(categoriaRepository.save(categoria));
+        return CategoriaResponse.from(categoriaRepository.save(categoria));
     }
 
     @Override

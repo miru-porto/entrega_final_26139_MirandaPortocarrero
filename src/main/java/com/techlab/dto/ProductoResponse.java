@@ -12,7 +12,7 @@ public record ProductoResponse(
         Integer stock,
         CategoriaResponse categoria) {
 
-    public static ProductoResponse desde(Producto producto) {
+    public static ProductoResponse from(Producto producto) {
         return new ProductoResponse(
                 producto.getId(),
                 producto.getNombre(),
@@ -20,6 +20,6 @@ public record ProductoResponse(
                 producto.getPrecio(),
                 producto.getImagen(),
                 producto.getStock(),
-                CategoriaResponse.desde(producto.getCategoria()));
+                CategoriaResponse.from(producto.getCategoria()));
     }
 }

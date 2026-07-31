@@ -17,13 +17,13 @@ public record PedidoResponse(
         Double total,
         List<LineaPedidoResponse> lineas) {
 
-    public static PedidoResponse desde(Pedido pedido) {
+    public static PedidoResponse from(Pedido pedido) {
         return new PedidoResponse(
                 pedido.getId(),
-                UsuarioResponse.desde(pedido.getUsuario()),
+                UsuarioResponse.from(pedido.getUsuario()),
                 pedido.getFecha(),
                 pedido.getEstado(),
                 pedido.getTotal(),
-                pedido.getLineas().stream().map(LineaPedidoResponse::desde).toList());
+                pedido.getLineas().stream().map(LineaPedidoResponse::from).toList());
     }
 }

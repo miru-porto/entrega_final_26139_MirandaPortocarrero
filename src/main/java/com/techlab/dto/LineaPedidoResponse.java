@@ -12,10 +12,10 @@ public record LineaPedidoResponse(
         Double precioUnitario,
         Double subtotal) {
 
-    public static LineaPedidoResponse desde(LineaPedido linea) {
+    public static LineaPedidoResponse from(LineaPedido linea) {
         return new LineaPedidoResponse(
                 linea.getId(),
-                ProductoResponse.desde(linea.getProducto()),
+                ProductoResponse.from(linea.getProducto()),
                 linea.getCantidad(),
                 linea.getPrecioUnitario(),
                 linea.getSubtotal());
