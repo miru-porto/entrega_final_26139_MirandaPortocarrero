@@ -1,12 +1,13 @@
 package com.techlab.service;
 
-import com.techlab.model.Usuario;
+import com.techlab.dto.UsuarioRequest;
+import com.techlab.dto.UsuarioResponse;
 import java.util.List;
 
 public interface UsuarioService {
-    List<Usuario> listarUsuarios();
-    Usuario obtenerUsuarioPorId(Long id);
-    Usuario guardarUsuario(Usuario usuario);
-    Usuario actualizarUsuario(Long id, Usuario usuario);
+    List<UsuarioResponse> listarUsuarios();
+    UsuarioResponse obtenerUsuarioPorId(Long id);
+    UsuarioResponse crearUsuario(UsuarioRequest request);
+    UsuarioResponse actualizarUsuario(Long id, UsuarioRequest request);
     void eliminarUsuario(Long id);
 }

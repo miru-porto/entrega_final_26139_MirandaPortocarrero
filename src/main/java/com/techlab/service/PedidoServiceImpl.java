@@ -2,6 +2,7 @@ package com.techlab.service;
 
 import com.techlab.dto.CrearPedidoRequest;
 import com.techlab.dto.LineaPedidoRequest;
+import com.techlab.dto.PedidoResponse;
 import com.techlab.exception.EstadoInvalidoException;
 import com.techlab.exception.ResourceNotFoundException;
 import com.techlab.exception.StockInsuficienteException;
@@ -46,28 +47,37 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public List<Pedido> listarPedidos(Long usuarioId) {
+    @Transactional(readOnly = true)
+    public List<PedidoResponse> listarPedidos(Long usuarioId) {
         if (usuarioId != null) {
             return listarPedidosPorUsuario(usuarioId);
         }
-        return pedidoRepository.findAll();
+        return pedidoRepository.findAll().stream().map(PedidoResponse::desde).toList();
     }
 
     @Override
-    public Pedido obtenerPedidoPorId(Long id) {
+    @Transactional(readOnly = true)
+    public PedidoResponse obtenerPedidoPorId(Long id) {
+        return PedidoResponse.desde(buscarPedido(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidoResponse> listarPedidosPorUsuario(Long usuarioId) {
+        return pedidoRepository.findByUsuarioIdOrderByFechaDesc(usuarioId)
+                .stream().map(PedidoResponse::desde).toList();
+    }
+
+    // Carga la entidad para uso interno del servicio; hacia afuera se expone PedidoResponse
+    private Pedido buscarPedido(Long id) {
         return pedidoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido", id));
-    }
-
-    @Override
-    public List<Pedido> listarPedidosPorUsuario(Long usuarioId) {
-        return pedidoRepository.findByUsuarioIdOrderByFechaDesc(usuarioId);
     }
 
     // Transaccional: si una línea no tiene stock, se revierte todo (no queda stock descontado a medias)
     @Override
     @Transactional
-    public Pedido crearPedido(CrearPedidoRequest request) {
+    public PedidoResponse crearPedido(CrearPedidoRequest request) {
         Usuario usuario = usuarioRepository.findById(request.getUsuarioId())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", request.getUsuarioId()));
 
@@ -93,13 +103,13 @@ public class PedidoServiceImpl implements PedidoService {
         }
 
         pedido.setTotal(pedido.calcularTotal());
-        return pedidoRepository.save(pedido); // cascade guarda también las líneas
+        return PedidoResponse.desde(pedidoRepository.save(pedido));
     }
 
     @Override
     @Transactional
-    public Pedido cambiarEstado(Long id, EstadoPedido nuevoEstado) {
-        Pedido pedido = obtenerPedidoPorId(id);
+    public PedidoResponse cambiarEstado(Long id, EstadoPedido nuevoEstado) {
+        Pedido pedido = buscarPedido(id);
         EstadoPedido actual = pedido.getEstado();
 
         if (!TRANSICIONES.get(actual).contains(nuevoEstado)) {
@@ -117,6 +127,6 @@ public class PedidoServiceImpl implements PedidoService {
         }
 
         pedido.setEstado(nuevoEstado);
-        return pedidoRepository.save(pedido);
+        return PedidoResponse.desde(pedidoRepository.save(pedido));
     }
 }

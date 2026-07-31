@@ -1,12 +1,13 @@
 package com.techlab.service;
 
-import com.techlab.model.Categoria;
+import com.techlab.dto.CategoriaRequest;
+import com.techlab.dto.CategoriaResponse;
 import java.util.List;
 
 public interface CategoriaService {
-    List<Categoria> listarCategorias();
-    Categoria obtenerCategoriaPorId(Long id);
-    Categoria guardarCategoria(Categoria categoria);
-    Categoria actualizarCategoria(Long id, Categoria categoria);
+    List<CategoriaResponse> listarCategorias();
+    CategoriaResponse obtenerCategoriaPorId(Long id);
+    CategoriaResponse crearCategoria(CategoriaRequest request);
+    CategoriaResponse actualizarCategoria(Long id, CategoriaRequest request);
     void eliminarCategoria(Long id);
 }

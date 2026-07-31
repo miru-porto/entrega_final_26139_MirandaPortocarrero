@@ -1,7 +1,8 @@
 package com.techlab.controller;
 
-import com.techlab.model.Pedido;
-import com.techlab.model.Usuario;
+import com.techlab.dto.PedidoResponse;
+import com.techlab.dto.UsuarioRequest;
+import com.techlab.dto.UsuarioResponse;
 import com.techlab.service.PedidoService;
 import com.techlab.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -24,31 +25,31 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> listar() {
+    public List<UsuarioResponse> listar() {
         return usuarioService.listarUsuarios();
     }
 
     @GetMapping("/{id}")
-    public Usuario obtenerPorId(@PathVariable Long id) {
+    public UsuarioResponse obtenerPorId(@PathVariable Long id) {
         return usuarioService.obtenerUsuarioPorId(id);
     }
 
     // Historial de pedidos del usuario
     @GetMapping("/{id}/pedidos")
-    public List<Pedido> historialPedidos(@PathVariable Long id) {
+    public List<PedidoResponse> historialPedidos(@PathVariable Long id) {
         usuarioService.obtenerUsuarioPorId(id); // valida que exista
         return pedidoService.listarPedidosPorUsuario(id);
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> crear(@Valid @RequestBody Usuario usuario) {
-        Usuario creado = usuarioService.guardarUsuario(usuario);
+    public ResponseEntity<UsuarioResponse> crear(@Valid @RequestBody UsuarioRequest request) {
+        UsuarioResponse creado = usuarioService.crearUsuario(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
     @PutMapping("/{id}")
-    public Usuario actualizar(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
-        return usuarioService.actualizarUsuario(id, usuario);
+    public UsuarioResponse actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequest request) {
+        return usuarioService.actualizarUsuario(id, request);
     }
 
     @DeleteMapping("/{id}")

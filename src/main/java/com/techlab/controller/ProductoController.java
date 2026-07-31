@@ -1,6 +1,8 @@
 package com.techlab.controller;
 
-import com.techlab.model.Producto;
+import com.techlab.dto.ActualizarStockRequest;
+import com.techlab.dto.ProductoRequest;
+import com.techlab.dto.ProductoResponse;
 import com.techlab.service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -8,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/productos")
@@ -23,36 +24,37 @@ public class ProductoController {
     // GET /api/productos       -> lista todos
     // GET /api/productos?nombre=mouse -> búsqueda por nombre parcial
     @GetMapping
-    public List<Producto> listar(@RequestParam(required = false) String nombre) {
+    public List<ProductoResponse> listar(@RequestParam(required = false) String nombre) {
         return productoService.listarProductos(nombre);
     }
 
     // Productos con stock bajo (para alertas en administración)
     @GetMapping("/stock-bajo")
-    public List<Producto> stockBajo(@RequestParam(defaultValue = "5") Integer umbral) {
+    public List<ProductoResponse> stockBajo(@RequestParam(defaultValue = "5") Integer umbral) {
         return productoService.listarStockBajo(umbral);
     }
 
     @GetMapping("/{id}")
-    public Producto obtenerPorId(@PathVariable Long id) {
+    public ProductoResponse obtenerPorId(@PathVariable Long id) {
         return productoService.obtenerProductoPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Producto> crear(@Valid @RequestBody Producto producto) {
-        Producto creado = productoService.guardarProducto(producto);
+    public ResponseEntity<ProductoResponse> crear(@Valid @RequestBody ProductoRequest request) {
+        ProductoResponse creado = productoService.crearProducto(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
     @PutMapping("/{id}")
-    public Producto actualizar(@PathVariable Long id, @Valid @RequestBody Producto producto) {
-        return productoService.actualizarProducto(id, producto);
+    public ProductoResponse actualizar(@PathVariable Long id, @Valid @RequestBody ProductoRequest request) {
+        return productoService.actualizarProducto(id, request);
     }
 
     // Actualización rápida de stock: body { "stock": 25 }
     @PatchMapping("/{id}/stock")
-    public Producto actualizarStock(@PathVariable Long id, @RequestBody Map<String, Integer> body) {
-        return productoService.actualizarStock(id, body.get("stock"));
+    public ProductoResponse actualizarStock(@PathVariable Long id,
+                                            @Valid @RequestBody ActualizarStockRequest request) {
+        return productoService.actualizarStock(id, request.getStock());
     }
 
     @DeleteMapping("/{id}")

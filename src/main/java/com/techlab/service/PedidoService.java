@@ -1,14 +1,14 @@
 package com.techlab.service;
 
 import com.techlab.dto.CrearPedidoRequest;
+import com.techlab.dto.PedidoResponse;
 import com.techlab.model.EstadoPedido;
-import com.techlab.model.Pedido;
 import java.util.List;
 
 public interface PedidoService {
-    List<Pedido> listarPedidos(Long usuarioId);
-    Pedido obtenerPedidoPorId(Long id);
-    List<Pedido> listarPedidosPorUsuario(Long usuarioId);
-    Pedido crearPedido(CrearPedidoRequest request);
-    Pedido cambiarEstado(Long id, EstadoPedido nuevoEstado);
+    List<PedidoResponse> listarPedidos(Long usuarioId);
+    PedidoResponse obtenerPedidoPorId(Long id);
+    List<PedidoResponse> listarPedidosPorUsuario(Long usuarioId);
+    PedidoResponse crearPedido(CrearPedidoRequest request);
+    PedidoResponse cambiarEstado(Long id, EstadoPedido nuevoEstado);
 }
