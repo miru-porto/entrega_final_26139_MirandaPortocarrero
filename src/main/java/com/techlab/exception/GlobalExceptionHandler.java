@@ -1,5 +1,7 @@
 package com.techlab.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -17,6 +21,8 @@ import java.util.Map;
 // Captura las excepciones de toda la API y devuelve respuestas JSON claras
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // Arma la estructura común de toda respuesta de error
     private Map<String, Object> cuerpoBase(HttpStatus status, String mensaje) {
@@ -71,6 +77,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(cuerpo);
     }
 
+    // Error 404: la ruta no existe (ej: /api/producto en singular, o la raíz /).
+    // Sin este handler la excepción cae en el catch-all de abajo y se responde 500,
+    // que significa "el servidor falló" en vez de "eso no está acá".
+    @ExceptionHandler({NoResourceFoundException.class, NoHandlerFoundException.class})
+    public ResponseEntity<Map<String, Object>> manejarRutaNoEncontrada(Exception ex) {
+        Map<String, Object> cuerpo = cuerpoBase(HttpStatus.NOT_FOUND, "La ruta solicitada no existe");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuerpo);
+    }
+
     // Error 400: el tipo de un parámetro no coincide (ej: /api/productos/abc en vez de un número)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, Object>> manejarTipoInvalido(MethodArgumentTypeMismatchException ex) {
@@ -82,6 +97,8 @@ public class GlobalExceptionHandler {
     // Error 500: cualquier otro error no contemplado (ej: falla de la base de datos)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> manejarErrorGeneral(Exception ex) {
+        log.error("Error no controlado procesando la peticion", ex);
+
         Map<String, Object> cuerpo = cuerpoBase(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Ocurrió un error interno en el servidor");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(cuerpo);
