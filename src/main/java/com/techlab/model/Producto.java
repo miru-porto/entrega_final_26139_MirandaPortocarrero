@@ -36,7 +36,7 @@ public class Producto {
     private Integer stock;
 
     // Muchos productos pueden pertenecer a una misma categoría (puede ser null)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 

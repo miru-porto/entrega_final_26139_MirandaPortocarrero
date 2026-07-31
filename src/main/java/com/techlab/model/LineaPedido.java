@@ -1,6 +1,5 @@
 package com.techlab.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
@@ -16,13 +15,13 @@ public class LineaPedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Referencia al pedido dueño; @JsonIgnore corta el ciclo Pedido -> Linea -> Pedido al serializar
-    @ManyToOne
+    // Referencia al pedido dueño. Ya no hace falta @JsonIgnore: la API expone
+    // LineaPedidoResponse, que directamente no tiene este campo.
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id", nullable = false)
-    @JsonIgnore
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
