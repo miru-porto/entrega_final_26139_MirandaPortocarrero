@@ -4,14 +4,9 @@ import {
     AppBar, Badge, Box, Container, Drawer, FormControl, IconButton, List, ListItem,
     ListItemButton, ListItemIcon, ListItemText, MenuItem, Select, Toolbar, Typography,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import CategoryIcon from '@mui/icons-material/Category';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import HistoryIcon from '@mui/icons-material/History';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import PersonIcon from '@mui/icons-material/Person';
+import {
+    History, Menu, ReceiptText, ShieldUser, ShoppingCart, Store, Tags, User,
+} from 'lucide-react';
 
 import { useCarrito } from '../context/CarritoContext.jsx';
 import { useUsuario } from '../context/UsuarioContext.jsx';
@@ -19,12 +14,12 @@ import { listarUsuarios } from '../api/usuarios.js';
 
 // Menú principal (calca las secciones de la consigna)
 const SECCIONES = [
-    { ruta: '/productos', etiqueta: 'Productos', icono: <StorefrontIcon /> },
-    { ruta: '/categorias', etiqueta: 'Categorías', icono: <CategoryIcon /> },
-    { ruta: '/carrito', etiqueta: 'Carrito de Compras', icono: <ShoppingCartIcon /> },
-    { ruta: '/realizar-pedido', etiqueta: 'Realizar Pedido', icono: <ReceiptLongIcon /> },
-    { ruta: '/historial', etiqueta: 'Historial de Pedidos', icono: <HistoryIcon /> },
-    { ruta: '/admin', etiqueta: 'Administración', icono: <AdminPanelSettingsIcon /> },
+    { ruta: '/productos', etiqueta: 'Productos', icono: <Store /> },
+    { ruta: '/categorias', etiqueta: 'Categorías', icono: <Tags /> },
+    { ruta: '/carrito', etiqueta: 'Carrito de Compras', icono: <ShoppingCart /> },
+    { ruta: '/realizar-pedido', etiqueta: 'Realizar Pedido', icono: <ReceiptText /> },
+    { ruta: '/historial', etiqueta: 'Historial de Pedidos', icono: <History /> },
+    { ruta: '/admin', etiqueta: 'Administración', icono: <ShieldUser /> },
 ];
 
 export default function Layout() {
@@ -50,7 +45,7 @@ export default function Layout() {
             <AppBar position="sticky">
                 <Toolbar>
                     <IconButton color="inherit" edge="start" onClick={() => setMenuAbierto(true)} sx={{ mr: 1 }}>
-                        <MenuIcon />
+                        <Menu />
                     </IconButton>
                     <Typography
                         variant="h6"
@@ -61,7 +56,7 @@ export default function Layout() {
                     </Typography>
 
                     {/* Selector de usuario actual (sin login, alcance del curso) */}
-                    <PersonIcon sx={{ mr: 1 }} />
+                    <User style={{ marginRight: 8 }} />
                     <FormControl variant="standard" sx={{ minWidth: 150, mr: 2 }}>
                         <Select
                             value={usuario?.id ?? ''}
@@ -81,7 +76,7 @@ export default function Layout() {
 
                     <IconButton color="inherit" onClick={() => navigate('/carrito')}>
                         <Badge badgeContent={cantidadTotal} color="secondary">
-                            <ShoppingCartIcon />
+                            <ShoppingCart />
                         </Badge>
                     </IconButton>
                 </Toolbar>

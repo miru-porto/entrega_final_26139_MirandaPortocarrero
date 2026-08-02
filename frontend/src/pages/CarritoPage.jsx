@@ -3,9 +3,7 @@ import {
     Button, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer,
     TableHead, TableRow, TextField, Typography,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import { ReceiptText, ShoppingCart, Trash2 } from 'lucide-react';
 
 import { useCarrito } from '../context/CarritoContext.jsx';
 import { formatearPrecio } from '../utils/formato.js';
@@ -17,7 +15,7 @@ export default function CarritoPage() {
     if (items.length === 0) {
         return (
             <Stack spacing={2} sx={{ mt: 8, alignItems: 'center' }}>
-                <RemoveShoppingCartIcon sx={{ fontSize: 64, color: 'text.disabled' }} />
+                <ShoppingCart size={64} strokeWidth={1.25} style={{ color: 'var(--color-texto-desactivado)' }} />
                 <Typography variant="h6" color="text.secondary">El carrito está vacío</Typography>
                 <Button variant="contained" onClick={() => navigate('/productos')}>
                     Ir a productos
@@ -60,7 +58,7 @@ export default function CarritoPage() {
                                 <TableCell align="right">{formatearPrecio(producto.precio * cantidad)}</TableCell>
                                 <TableCell align="right">
                                     <IconButton color="error" size="small" onClick={() => quitar(producto.id)}>
-                                        <DeleteIcon fontSize="small" />
+                                        <Trash2 size={20} />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
@@ -82,7 +80,7 @@ export default function CarritoPage() {
                 <Button color="error" onClick={vaciar}>Vaciar carrito</Button>
                 <Button
                     variant="contained"
-                    startIcon={<ReceiptLongIcon />}
+                    startIcon={<ReceiptText size={20} />}
                     onClick={() => navigate('/realizar-pedido')}
                 >
                     Realizar pedido

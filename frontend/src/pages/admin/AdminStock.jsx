@@ -3,7 +3,7 @@ import {
     Alert, IconButton, Paper, Table, TableBody, TableCell, TableContainer,
     TableHead, TableRow, TextField,
 } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
+import { Check } from 'lucide-react';
 
 import { useNotificar } from '../../context/NotificacionContext.jsx';
 import { actualizarStock, listarProductos, listarStockBajo } from '../../api/productos.js';
@@ -81,7 +81,7 @@ export default function AdminStock() {
                                         disabled={edicion[producto.id] === undefined || edicion[producto.id] === ''}
                                         onClick={() => guardarStock(producto)}
                                     >
-                                        <CheckIcon />
+                                        <Check />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>

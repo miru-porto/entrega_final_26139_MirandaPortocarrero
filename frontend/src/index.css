@@ -17,6 +17,7 @@
 
     --color-texto: rgb(0 0 0 / 87%);
     --color-texto-suave: rgb(0 0 0 / 60%);
+    --color-texto-desactivado: rgb(0 0 0 / 38%);
     --color-texto-sobre-primario: #fff;
 
     /* Estados: se usan en avisos, notificaciones y el chip de estado del pedido */

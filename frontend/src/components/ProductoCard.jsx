@@ -1,9 +1,7 @@
 import {
     Button, Card, CardActions, CardContent, CardMedia, Chip, IconButton, Stack, Typography,
 } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Pencil, ShoppingCart, Trash2 } from 'lucide-react';
 
 import { formatearPrecio } from '../utils/formato.js';
 
@@ -43,17 +41,17 @@ export default function ProductoCard({ producto, onAgregarAlCarrito, onEditar, o
                 <Button
                     size="small"
                     variant="contained"
-                    startIcon={<AddShoppingCartIcon />}
+                    startIcon={<ShoppingCart size={18} />}
                     disabled={sinStock}
                     onClick={() => onAgregarAlCarrito(producto)}
                 >
                     Agregar
                 </Button>
                 <IconButton size="small" onClick={() => onEditar(producto)} aria-label="editar">
-                    <EditIcon fontSize="small" />
+                    <Pencil size={20} />
                 </IconButton>
                 <IconButton size="small" color="error" onClick={() => onEliminar(producto)} aria-label="eliminar">
-                    <DeleteIcon fontSize="small" />
+                    <Trash2 size={20} />
                 </IconButton>
             </CardActions>
         </Card>

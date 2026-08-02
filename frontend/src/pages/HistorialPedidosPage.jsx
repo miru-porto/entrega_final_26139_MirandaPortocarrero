@@ -3,7 +3,7 @@ import {
     Accordion, AccordionDetails, AccordionSummary, Alert, Stack, Table, TableBody,
     TableCell, TableHead, TableRow, Typography,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { ChevronDown } from 'lucide-react';
 
 import EstadoChip from '../components/EstadoChip.jsx';
 import { useUsuario } from '../context/UsuarioContext.jsx';
@@ -46,7 +46,7 @@ export default function HistorialPedidosPage() {
 
             {pedidos.map((pedido) => (
                 <Accordion key={pedido.id}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary expandIcon={<ChevronDown />}>
                         <Stack
                             direction="row" spacing={2}
                             sx={{ flexGrow: 1, mr: 2, alignItems: 'center', justifyContent: 'space-between' }}

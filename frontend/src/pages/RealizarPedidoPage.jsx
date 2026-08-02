@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     Alert, Button, Divider, List, ListItem, ListItemText, Paper, Stack, Typography,
 } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { CircleCheck } from 'lucide-react';
 
 import { useCarrito } from '../context/CarritoContext.jsx';
 import { useUsuario } from '../context/UsuarioContext.jsx';
@@ -97,7 +97,7 @@ export default function RealizarPedidoPage() {
                     variant="contained"
                     fullWidth
                     size="large"
-                    startIcon={<CheckCircleIcon />}
+                    startIcon={<CircleCheck size={22} />}
                     disabled={!usuario || enviando}
                     onClick={confirmar}
                 >

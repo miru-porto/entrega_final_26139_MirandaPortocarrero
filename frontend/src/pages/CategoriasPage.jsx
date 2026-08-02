@@ -3,9 +3,7 @@ import {
     Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Stack,
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Pencil, Plus, Trash2 } from 'lucide-react';
 
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import { useNotificar } from '../context/NotificacionContext.jsx';
@@ -71,7 +69,7 @@ export default function CategoriasPage() {
                 <Typography variant="h4" component="h1" sx={{ flexGrow: 1 }}>
                     Categorías
                 </Typography>
-                <Button variant="contained" startIcon={<AddIcon />} onClick={() => abrirForm()}>
+                <Button variant="contained" startIcon={<Plus size={20} />} onClick={() => abrirForm()}>
                     Agregar categoría
                 </Button>
             </Stack>
@@ -94,10 +92,10 @@ export default function CategoriasPage() {
                                 <TableCell>{categoria.descripcion}</TableCell>
                                 <TableCell align="right">
                                     <IconButton size="small" onClick={() => abrirForm(categoria)}>
-                                        <EditIcon fontSize="small" />
+                                        <Pencil size={20} />
                                     </IconButton>
                                     <IconButton size="small" color="error" onClick={() => setCategoriaAEliminar(categoria)}>
-                                        <DeleteIcon fontSize="small" />
+                                        <Trash2 size={20} />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>

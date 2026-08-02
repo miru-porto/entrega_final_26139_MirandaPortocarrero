@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Box, Button, InputAdornment, Stack, TextField, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import SearchIcon from '@mui/icons-material/Search';
+import { Plus, Search } from 'lucide-react';
 
 import ProductoCard from '../components/ProductoCard.jsx';
 import ProductoFormDialog from '../components/ProductoFormDialog.jsx';
@@ -98,12 +97,12 @@ export default function ProductosPage() {
                     slotProps={{
                         input: {
                             startAdornment: (
-                                <InputAdornment position="start"><SearchIcon /></InputAdornment>
+                                <InputAdornment position="start"><Search size={20} /></InputAdornment>
                             ),
                         },
                     }}
                 />
-                <Button variant="contained" startIcon={<AddIcon />} onClick={abrirAlta}>
+                <Button variant="contained" startIcon={<Plus size={20} />} onClick={abrirAlta}>
                     Agregar producto
                 </Button>
             </Stack>
