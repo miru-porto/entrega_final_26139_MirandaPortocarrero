@@ -1,0 +1,63 @@
+.modal {
+    /* Sin padding propio: así el click en los bordes cuenta como click en el
+       contenido y no cierra la ventana sin querer. El espaciado lo ponen las
+       tres partes de adentro. */
+    padding: 0;
+    border: none;
+    border-radius: var(--radio);
+    background-color: var(--color-superficie);
+    color: var(--color-texto);
+    box-shadow: var(--sombra-2);
+    max-height: calc(100vh - 64px);
+    overflow: hidden;
+}
+
+.modal--chico {
+    width: min(420px, calc(100% - 32px));
+}
+
+.modal--medio {
+    width: min(560px, calc(100% - 32px));
+}
+
+.modal::backdrop {
+    background-color: rgb(0 0 0 / 45%);
+}
+
+.modal[open] {
+    display: flex;
+    flex-direction: column;
+    animation: modal-aparecer 0.15s ease-out;
+}
+
+@keyframes modal-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal[open] {
+        animation: none;
+    }
+}
+
+.modal__titulo {
+    padding: var(--espaciado-3) var(--espaciado-3) var(--espaciado-2);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.modal__cuerpo {
+    /* Si el contenido no entra, scrollea solo el cuerpo y el pie queda fijo */
+    padding: 0 var(--espaciado-3);
+    overflow-y: auto;
+}
+
+.modal__acciones {
+    display: flex;
+    gap: var(--espaciado-1);
+    justify-content: flex-end;
+    padding: var(--espaciado-2) var(--espaciado-3) var(--espaciado-3);
+}

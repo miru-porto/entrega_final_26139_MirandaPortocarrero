@@ -1,0 +1,54 @@
+/* La caja es la que scrollea en horizontal cuando la tabla no entra en pantalla */
+.tabla-caja {
+    overflow-x: auto;
+    border-radius: var(--radio);
+    background-color: var(--color-superficie);
+    box-shadow: var(--sombra-1);
+}
+
+.tabla-caja--plana {
+    background: none;
+    box-shadow: none;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabla th,
+.tabla td {
+    padding: 14px var(--espaciado-2);
+    text-align: left;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.tabla th {
+    font-weight: 600;
+    color: var(--color-texto-suave);
+    white-space: nowrap;
+}
+
+/* La última fila no lleva línea: la corta el borde redondeado de la caja */
+.tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla tbody tr:hover {
+    background-color: var(--tinte-neutro);
+}
+
+.tabla--densa th,
+.tabla--densa td {
+    padding: 8px 12px;
+}
+
+/* Alineación de celdas */
+.tabla .derecha {
+    text-align: right;
+}
+
+.tabla .centro {
+    text-align: center;
+}

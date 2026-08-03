@@ -22,9 +22,15 @@
 
     /* Estados: se usan en avisos, notificaciones y el chip de estado del pedido */
     --color-error: #d32f2f;
+    --color-error-oscuro: #b02525;
     --color-alerta: #ed6c02;
     --color-info: #0288d1;
     --color-exito: #2e7d32;
+
+    /* Tintes: fondos apenas visibles para el hover de los botones sin relleno */
+    --tinte-primario: rgb(142 36 170 / 8%);
+    --tinte-error: rgb(211 47 47 / 8%);
+    --tinte-neutro: rgb(0 0 0 / 6%);
 
     /* Fondos suaves de cada estado, para las píldoras y las cajas de aviso */
     --fondo-error: #fdeded;

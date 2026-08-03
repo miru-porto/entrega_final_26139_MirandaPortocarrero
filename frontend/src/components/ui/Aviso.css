@@ -1,0 +1,35 @@
+.aviso {
+    display: flex;
+    gap: var(--espaciado-1);
+    align-items: flex-start;
+    padding: 12px var(--espaciado-2);
+    border-radius: var(--radio-chico);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* El ícono no se achica cuando el texto es largo */
+.aviso__icono {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.aviso--error {
+    background-color: var(--fondo-error);
+    color: var(--color-error);
+}
+
+.aviso--alerta {
+    background-color: var(--fondo-alerta);
+    color: var(--color-alerta);
+}
+
+.aviso--info {
+    background-color: var(--fondo-info);
+    color: var(--color-info);
+}
+
+.aviso--exito {
+    background-color: var(--fondo-exito);
+    color: var(--color-exito);
+}

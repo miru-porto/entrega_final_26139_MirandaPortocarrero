@@ -1,0 +1,6 @@
+.panel {
+    padding: var(--espaciado-3);
+    border-radius: var(--radio);
+    background-color: var(--color-superficie);
+    box-shadow: var(--sombra-1);
+}

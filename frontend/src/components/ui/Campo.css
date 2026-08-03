@@ -1,0 +1,73 @@
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.campo__etiqueta {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-texto-suave);
+}
+
+/* La caja dibuja el borde; el input adentro va sin borde ni fondo */
+.campo__caja {
+    display: flex;
+    gap: var(--espaciado-1);
+    align-items: center;
+    padding: 0 12px;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-chico);
+    background-color: var(--color-superficie);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.campo__caja:focus-within {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px var(--tinte-primario);
+}
+
+.campo__adorno {
+    display: flex;
+    color: var(--color-texto-suave);
+}
+
+.campo__control {
+    width: 100%;
+    padding: 9px 0;
+    border: none;
+    background: none;
+    font-size: 0.9rem;
+}
+
+.campo__control:focus {
+    outline: none;
+}
+
+.campo__control::placeholder {
+    color: var(--color-texto-desactivado);
+}
+
+textarea.campo__control {
+    padding: 9px 0;
+    resize: vertical;
+}
+
+.campo__mensaje {
+    font-size: 0.75rem;
+    color: var(--color-texto-suave);
+}
+
+/* Estado de error */
+.campo--con-error .campo__caja {
+    border-color: var(--color-error);
+}
+
+.campo--con-error .campo__caja:focus-within {
+    box-shadow: 0 0 0 3px var(--tinte-error);
+}
+
+.campo--con-error .campo__mensaje {
+    color: var(--color-error);
+}

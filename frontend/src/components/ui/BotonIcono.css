@@ -1,0 +1,53 @@
+.boton-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: none;
+    color: var(--color-texto-suave);
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.boton-icono:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+}
+
+.boton-icono:focus-visible {
+    outline: 2px solid var(--color-primario);
+    outline-offset: 2px;
+}
+
+/* Tamaños: el área clickeable no baja de 32px aunque el ícono sea chico */
+.boton-icono--chico {
+    width: 32px;
+    height: 32px;
+}
+
+.boton-icono--medio {
+    width: 40px;
+    height: 40px;
+}
+
+/* Tonos */
+.boton-icono--neutro:hover:not(:disabled) {
+    background-color: var(--tinte-neutro);
+    color: var(--color-texto);
+}
+
+.boton-icono--primario {
+    color: var(--color-primario);
+}
+
+.boton-icono--primario:hover:not(:disabled) {
+    background-color: var(--tinte-primario);
+}
+
+.boton-icono--peligro {
+    color: var(--color-error);
+}
+
+.boton-icono--peligro:hover:not(:disabled) {
+    background-color: var(--tinte-error);
+}
